@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -19,25 +19,26 @@ tasks = [
 ]
 
 
-
+email_addresses = []
 
 @app.route('/')
 def index():
-	return "Hello World!"
+	return render_template('index.html')
 
+@app.route('/signup', methods = ['POST'])
+def signup():
+    email = request.form['email']
+    email_addresses.append(email)
+    print(email_addresses)
+    return redirect('/')
 
 @app.route('/api/currencyrate', methods = ['GET'])
 def getCurrencyRate():
-	return jsonify({'tasks': tasks})
+    return jsonify({'tasks': tasks})
 
 @app.route('/api/test', methods = ['GET'])
 def getTest():
-	return jsonify({"result": 10})
-
-
-
-
-
+    return jsonify({"result": 10})
 
 	
 if __name__ == '__main__':
