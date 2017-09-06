@@ -6,11 +6,12 @@ def setup_module():
 
 
 def testCurrencyRateAPI():
-	assert 3==3
+	pass
 
 def testAPI():
 	url = "http://localhost:5000/api/test"
 	response = urllib.request.urlopen(url)
 	assert response.status == 200
-	assert json.loads(response.read())['result'] == 10 
+	assert json.loads(bytes.decode(response.read()))['result'] == 10 
+	response.close()
 
